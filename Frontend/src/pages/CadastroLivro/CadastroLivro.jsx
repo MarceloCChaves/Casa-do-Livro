@@ -15,6 +15,10 @@ const CadastroLivro = () => {
 
   const inputFileRef = useRef(null);
 
+  const handleChange = (setState) => (e) => {
+    setState(e.target.value);
+  };
+
   const body = {
     name: name,
     category: category,
@@ -29,14 +33,16 @@ const CadastroLivro = () => {
     await API.post("/book", body)
       .then(() => {
         alert("livro cadastrado");
+        setName("");
+        setCategory("");
+        setAuthor("");
+        setYear("");
+        setImage(null);
+        setDescription("");
       })
       .catch((err) => {
         console.error(err);
       });
-  };
-
-  const handleChange = (setState) => (e) => {
-    setState(e.target.value);
   };
 
   return (
@@ -44,8 +50,8 @@ const CadastroLivro = () => {
       <h1 className="font-bold text-center">
         Cadastrar <span className="font-light">livro</span>
       </h1>
-      <form className="h-screen" onSubmit={handleRegisterBook}>
-        <div className="flex justify-center ">
+      <form onSubmit={handleRegisterBook}>
+        <div className="flex justify-center flex-wrap">
           <div className="flex items-center flex-col">
             <Input
               classes="m-3 p-3 border-2 border-black"
@@ -79,7 +85,7 @@ const CadastroLivro = () => {
             />
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center flex-wrap">
           <div
             className="my-3 p-3 h-60 w-44 border-2 border-black input-field"
             onClick={() => inputFileRef.current.click()}
@@ -102,14 +108,12 @@ const CadastroLivro = () => {
               fileName
             )}
           </div>
-        </div>
-        <div className="flex justify-center">
           <textarea
-            className="my-3 p-3 border-2 border-black"
+            className="m-3 p-3 border-2 border-black"
             value={description}
             placeholder="Descrição"
             cols={50}
-            rows={10}
+            rows={8}
             onChange={handleChange(setDescription)}
           />
         </div>
