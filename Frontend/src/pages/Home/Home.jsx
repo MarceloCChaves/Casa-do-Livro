@@ -1,31 +1,23 @@
-import { Link } from "react-router-dom";
-import bookLover from "../../assets/undraw_book_lover_re_rwjy.svg";
 import Button from "../../components/Button/Button";
-
+import Livros from "../../components/Livros/Livros";
+import { Link } from "react-router-dom";
 const Home = () => {
   return (
-    <div className="flex items-center justify-center">
-      <div className="flex items-center justify-center h-screen">
-        <div>
-          <h1 className="text-3xl font-bold">Casa do livro</h1>
-          <Link to="/cadastrar-livro">
+    <div>
+      <div className="flex flex-col">
+        <div className="flex  justify-around my-5">
+          <span className="text-3xl font-bold">Casa do livro</span>
+          <Link to="cadastro-livro">
             <Button
-              classes="bg-red-800 text-white my-3 py-2 px-5 rounded-lg"
-              type="button"
-              text="Cadastrar livro"
-            />
-          </Link>
-          <Link to="/livros">
-            <Button
-              classes="bg-green-600 text-white my-3 py-2 px-5 rounded-lg"
-              type="button"
-              text="Ver livros cadastrados"
+              text="+ Adicionar novo livro"
+              classes="bg-indigo-900 hover:bg-indigo-800 text-slate-50 p-3 rounded-lg"
             />
           </Link>
         </div>
-        <div>
-          <img src={bookLover} className="w-52 m-5" alt="Book" />
-        </div>
+      </div>
+      <hr/>
+      <div>
+        <Livros />
       </div>
     </div>
   );

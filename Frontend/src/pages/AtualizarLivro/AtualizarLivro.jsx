@@ -5,15 +5,17 @@ import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import { RiCloseFill } from "react-icons/ri";
 import Modal from "../../components/Modal/Modal";
+import { useParams } from "react-router-dom";
 
-const CadastroLivro = () => {
-  const [name, setName] = useState("");
-  const [category, setCategory] = useState("");
-  const [image, setImage] = useState(null);
-  const [description, setDescription] = useState("");
-  const [author, setAuthor] = useState("");
-  const [year, setYear] = useState("");
-  const [fileName, setFileName] = useState("Capa");
+const AtualizarLivro = ({ closeModal }) => {
+  const [name, setName] = useState();
+  const [category, setCategory] = useState();
+  const [image, setImage] = useState();
+  const [description, setDescription] = useState();
+  const [author, setAuthor] = useState();
+  const [year, setYear] = useState();
+  const [fileName, setFileName] = useState();
+  const params = useParams();
 
   const inputFileRef = useRef(null);
 
@@ -42,15 +44,14 @@ const CadastroLivro = () => {
     setYear("");
     setImage(null);
     setDescription("");
-  }
+  };
 
-  const handleRegisterBook = async (e) => {
+  const handleUpdateBook = async (e) => {
     e.preventDefault();
-    await API.post("/book", body)
+    await API.patch(`/book/${params.id}`, body)
       .then(() => {
-        alert("livro cadastrado");
+        alert("livro atualizado");
         resetInputs();
-        localStorage.setItem("name", name);
       })
       .catch((err) => {
         console.error(err);
@@ -62,11 +63,12 @@ const CadastroLivro = () => {
       <Link to="/">
         <RiCloseFill
           className="cursor-pointer absolute right-2"
+          onClick={closeModal}
           {...iconProps}
         />
       </Link>
-      <h1 className="text-3xl font-bold my-2 p-3">Adicionar livro</h1>
-      <form onSubmit={handleRegisterBook}>
+      <h1 className="text-3xl font-bold my-2 p-3">Editar livro</h1>
+      <form onSubmit={handleUpdateBook}>
         <div className="flex justify-center flex-wrap">
           <div className="flex flex-col">
             <Input
@@ -138,13 +140,14 @@ const CadastroLivro = () => {
           <Button
             classes="m-3 px-10 py-3 bg-indigo-900 font-bold text-white rounded-lg"
             type="submit"
-            text="Salvar"
+            text="Atualizar"
           />
           <Link to="/">
             <Button
               classes="my-3 px-10 py-3 border-2 text-indigo-900 font-bold border-indigo-900 bg-white rounded-lg"
               type="button"
               text="Cancelar"
+              onclick={closeModal}
             />
           </Link>
         </div>
@@ -153,4 +156,4 @@ const CadastroLivro = () => {
   );
 };
 
-export default CadastroLivro;
+export default AtualizarLivro;
