@@ -13,7 +13,12 @@ Aplicação CRUD para registro de livros
 ## 📁 Clonando o Repositório
 - Abra o terminal da sua IDE digitando os comandos seguindo o passo a passo abaixo
 ```
-git clone https://github.com/MarceloCChaves/Breaking-bad-collection.git
+git clone https://github.com/MarceloCChaves/Casa-do-Livro.git
+cd backend
+npm install
+npm start
+cd ..
+cd frontend
 npm install
 npm run start
 ```
